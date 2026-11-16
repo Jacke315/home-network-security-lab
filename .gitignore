@@ -1,0 +1,37 @@
+# Backups and archives
+*.zip
+*.tar.gz
+*.tgz
+*.bak
+
+# Keys and credentials
+*.pem
+*.key
+id_*
+authorized_keys
+known_hosts
+*.env
+.env
+*.ovpn
+
+# Pi-hole and Pi config backups
+teleporter*
+pi-config*
+*.conf
+
+# Logs, captures and databases
+*.log
+*.pcap
+*.pcapng
+*.sqlite
+*.db
+
+# Private or unredacted material
+*private*
+*unredacted*
+home_threat_model_v4.json
+
+# Editor and macOS files
+.vscode/
+*.swp
+.DS_Store

@@ -1,0 +1,2025 @@
+{
+  "summary": {
+    "title": "Threat model of home",
+    "owner": "Jacke315",
+    "description": "A small home network used by a household of two adults, with laptops, phones and game consoles on the main network. Smart devices such as lights, a robot vacuum, cameras and a TV sit on a separate guest network, isolated from the main network. A Raspberry Pi on the main network provides DNS filtering with Pi-hole and a local recursive resolver with Unbound, and is managed over SSH with key login only. The model covers three zones: the main network, the internet and the guest network. Its purpose is to document threats and mitigations for a home lab as a learning and portfolio project. Out of scope are the internet provider’s own infrastructure and the vendors’ internal security."
+  },
+  "detail": {
+    "contributors": [],
+    "diagrams": [
+      {
+        "title": "Home_threat_model",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "diagramType": "STRIDE",
+        "id": 0,
+        "$$hashKey": "object:14",
+        "diagramJson": {
+          "cells": [
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 640,
+                "y": 0
+              },
+              "target": {
+                "x": 640,
+                "y": 1180
+              },
+              "vertices": [],
+              "id": "e5176cc3-3dc5-403d-9a19-94a756831b83",
+              "z": 1,
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.018803258426487446,
+                    "offset": 17
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "Main network | Internet",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "attrs": {}
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 1000,
+                "y": 0
+              },
+              "target": {
+                "x": 1000,
+                "y": 1180
+              },
+              "vertices": [],
+              "id": "fa9a9cab-8d4d-488d-b9cc-f7f901e6a753",
+              "z": 2,
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.020229987800121307,
+                    "offset": 6
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "Internet | Guest",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "attrs": {}
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 150,
+                "height": 70
+              },
+              "position": {
+                "x": 440,
+                "y": 39
+              },
+              "angle": 0,
+              "id": "126fdfb1-eb4a-4bfb-98cd-409ebfb44dca",
+              "z": 4,
+              "hasOpenThreats": false,
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "title": "Hacked console used to reach other devices",
+                  "type": "Elevation of privilege",
+                  "description": "The console sits on the main network next to the laptops and the Pi. If it were taken over, it could be used to reach them.",
+                  "mitigation": "Nintendo push regular security updates, installed automatically. Accepted on the main network for online and remote play.",
+                  "threatId": "9b98f77e-399d-464d-b82c-925452c04f91",
+                  "$$hashKey": "object:457"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Nintendo Switch 2"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 150,
+                "height": 70
+              },
+              "position": {
+                "x": 442,
+                "y": 150
+              },
+              "angle": 0,
+              "id": "35ce534d-3566-4af1-ac62-5191ef5bc491",
+              "z": 5,
+              "hasOpenThreats": false,
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "title": "Hacked console used to reach other devices",
+                  "type": "Elevation of privilege",
+                  "description": "The console sits on the main network next to the laptops and the Pi. If it were taken over, it could be used to reach them.",
+                  "mitigation": "Sony push regular security updates, installed automatically. Accepted on the main network for online and remote Play.",
+                  "threatId": "d0abdd7a-7805-4129-a29b-4b9dcbe9f7bc",
+                  "$$hashKey": "object:469"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "PS5"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 150,
+                "height": 70
+              },
+              "position": {
+                "x": 440,
+                "y": 300
+              },
+              "angle": 0,
+              "id": "65fbd77e-2a73-495d-8aa7-d60f20416f0b",
+              "z": 6,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "modelType": "STRIDE",
+                  "title": "Stolen MacBook gives access to accounts and the Pi",
+                  "description": "One of the MacBooks holds the only SSH key to the Pi, the password manager and logged-in accounts. A thief could try to use them.",
+                  "mitigation": "FileVault disk encryption on. Login password required.",
+                  "type": "Information disclosure",
+                  "threatId": "fca11868-44c0-4f31-b984-49091ed950ce",
+                  "$$hashKey": "object:485"
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "modelType": "STRIDE",
+                  "title": "Malware on the MacBook uses the SSH key to reach the Pi",
+                  "type": "Elevation of privilege",
+                  "description": "If the MacBook got malware, it could use the saved SSH key to log into the Pi and change Pi-Hole or read the query log.",
+                  "mitigation": "macOS updates installed. SSH key protected by a passphrase, also backed up in the password manager. The passphrase is saved in the Keychain, so it gives little protection while the Mac is logged in. Possible improvement: require approval for each use of the key.",
+                  "threatId": "899c2311-c388-4975-80aa-0b0466964f70",
+                  "$$hashKey": "object:491"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "MacBook Airs"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 150,
+                "height": 70
+              },
+              "position": {
+                "x": 443,
+                "y": 505
+              },
+              "angle": 0,
+              "id": "0ead4ea0-d875-4b1e-8922-536ef1a5b7a0",
+              "z": 7,
+              "hasOpenThreats": false,
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "modelType": "STRIDE",
+                  "title": "Lost or stolen iPhone gives access to accounts",
+                  "type": "Information disclosure",
+                  "description": "The iPhones hold the app accounts for the cameras, robot and lights, plus iCloud, photos and the password manager. A thief who unlocks the phone could use them.",
+                  "mitigation": "Passcode and Face ID required. Find My on. Stolen Device Protection on.",
+                  "threatId": "b2638441-1d39-46ac-8d54-d0a49d0d1d6a",
+                  "$$hashKey": "object:497"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "iPhones"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 100,
+                "height": 100
+              },
+              "position": {
+                "x": 225,
+                "y": 396
+              },
+              "angle": 0,
+              "id": "39a273bf-8ff4-4808-9e62-ed8c09bb3e6a",
+              "z": 8,
+              "hasOpenThreats": true,
+              "description": "DNS filter, HaGeZi PRO + TIF blocklists",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "modelType": "STRIDE",
+                  "type": "Spoofing",
+                  "mitigation": "Strong unique password stored in the password manager. Dashboard accessed over HTTPS only. Only trusted devices on the main network; IoT devices isolated on the guest network.",
+                  "title": "Unauthorised login to Pi-hole admin page",
+                  "description": "Someone on the home network guesses or steals the admin password and logs into the Pi-hole dashboard.",
+                  "threatId": "48d21f53-a360-4c22-a91d-392dd0f25b9d",
+                  "$$hashKey": "object:169"
+                },
+                {
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "modelType": "STRIDE",
+                  "title": "Blocklists or settings changed by an attacker",
+                  "type": "Tampering",
+                  "mitigation": "SSH with key only, strong admin password, HaGeZi lists from a trusted source.",
+                  "threatId": "f210bf68-fdf7-4dbb-962f-53c44b192950",
+                  "description": "An attacker who gets into the Pi, through the admin page or SSH, could change Pi-hole's blocklists or settings. For example, they could allow a phishing site or send DNS lookups to a server they control, so family devices are directed to fake websites without anyone noticing.",
+                  "$$hashKey": "object:175"
+                },
+                {
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "modelType": "STRIDE",
+                  "title": "Query log reveals the family's browsing history",
+                  "type": "Information disclosure",
+                  "mitigation": "Log stored only on the Pi, admin page behind password and HTTPS, Pi reachable only from the main network",
+                  "threatId": "8f89353d-3544-4de8-9ad8-cbec9c991f00",
+                  "description": "Pi-hole's query log records every website name that the family's devices look up. Anyone who gains access to the Pi or the admin page could read it and see which sites each device has visited and when. The log stays on the Pi and is never sent outside the home",
+                  "$$hashKey": "object:181"
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "modelType": "STRIDE",
+                  "type": "Denial of service",
+                  "title": "Household loses internet when the Pi fails",
+                  "mitigation": "Partly: backups exist and each device can switch DNS back. But the Pi is still a single point of failure.",
+                  "description": "If the Pi stops working, for example because it is switched off, loses power, crashes or the microSD card fails, Pi-hole can no longer answer DNS lookups. All devices that use Pi-hole as their DNS server then cannot look up website names, so in practice they lose internet access.",
+                  "threatId": "d65b9761-5410-4610-9e0e-7224dd2f2971",
+                  "$$hashKey": "object:187"
+                },
+                {
+                  "status": "NotApplicable",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "type": "Repudiation",
+                  "title": "Changes to Pi-hole can't be traced to a person",
+                  "mitigation": "Only one person has access to the admin account, so tracing isn't needed.",
+                  "description": "Pi-hole's dashboard uses one shared admin password, not separate accounts per person. If a setting or blocklist is changed, it cannot be shown who made the change or when. In this household only one person administers the Pi, so the risk is accepted. In a business setting, individual logins and a change log would be needed.",
+                  "threatId": "508b9045-bd44-461f-a23e-d9a1ece731da",
+                  "$$hashKey": "object:173"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Pi-hole"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 70
+              },
+              "position": {
+                "x": 172,
+                "y": 573
+              },
+              "angle": 0,
+              "id": "6e6656e4-79a5-4a27-b649-eb2a9aadbd3d",
+              "z": 9,
+              "hasOpenThreats": false,
+              "description": "Every DNS lookup from the family's devices. Stored only on the Pi.",
+              "isALog": true,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Query log"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 100,
+                "height": 100
+              },
+              "position": {
+                "x": 156,
+                "y": 279
+              },
+              "angle": 0,
+              "id": "70e930e1-946f-4611-a341-39363b8b6225",
+              "z": 10,
+              "hasOpenThreats": false,
+              "description": "Key login only. Password and root login disabled.",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "title": "SSH access lost if the MacBook breaks",
+                  "type": "Denial of service",
+                  "description": "The MacBook holds the only SSH key. If it is lost or broken, the Pi can't be reached over SSH.",
+                  "mitigation": "Screen, keyboard and mouse connected directly to the Pi as a way back in. A new key can be added from there.",
+                  "threatId": "857831b3-65dc-4d0f-823f-13b5bc3d1bd4",
+                  "$$hashKey": "object:158"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "SSH server"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 100,
+                "height": 100
+              },
+              "position": {
+                "x": 8,
+                "y": 404
+              },
+              "angle": 0,
+              "id": "87035449-7f9b-432a-9766-4b114c9bd91e",
+              "z": 11,
+              "hasOpenThreats": true,
+              "description": "Recursive resolver, DNSSEC, listens on 127.0.0.1:5335",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "modelType": "STRIDE",
+                  "title": "Pi-hole loses its upstream when Unbound fails",
+                  "type": "Denial of service",
+                  "description": "If Unbound stops, or the ISP starts intercepting DNS traffic, Pi-hole has nowhere to send lookups, and websites stop loading.",
+                  "mitigation": "Tested: the ISP doesn't intercept DNS, and sudo service unbound status shows whether it's running.",
+                  "threatId": "47e717b3-9573-49fd-a524-96b071f73dd4",
+                  "$$hashKey": "object:64"
+                },
+                {
+                  "status": "Mitigated",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "title": "Other devices use Unbound directly, skipping Pi-hole",
+                  "type": "Elevation of privilege",
+                  "description": "If Unbound answered other devices, they could skip the blocklists.",
+                  "mitigation": "Unbound only listens on 127.0.0.1, so only the Pi itself can use it.",
+                  "threatId": "729871ac-975e-4f31-ac2a-ee732e6adbd0",
+                  "$$hashKey": "object:135"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Unbound"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 100,
+                "height": 100
+              },
+              "position": {
+                "x": 770,
+                "y": 20
+              },
+              "angle": 0,
+              "id": "ec28d229-898a-4d81-8841-b58400b36ca1",
+              "z": 12,
+              "hasOpenThreats": true,
+              "description": "Home Router. All traffic between the zones and the internet passes through it; those flows are left out to keep the diagram readable. Firewall Medium, UPnP on and not configurable, DMZ off, no port forwarding, behind CG-NAT. No traffic is allowed between the main network and the guest network (tested).",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "title": "Devices open ports without asking",
+                  "type": "Elevation of privilege",
+                  "description": "UPnP is on and can't be turned off in the router menu.  Any device on the network can open ports on the router without a password.",
+                  "mitigation": "Behind CG-NAT, so opened ports can't be reached from the internet. Unknown rule found and removed. Checked with upnpc -l",
+                  "threatId": "42fe7d53-2a51-4fbb-802f-97bdc9e4f4bf",
+                  "$$hashKey": "object:205"
+                },
+                {
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "modelType": "STRIDE",
+                  "title": "Router admin page taken over",
+                  "type": "Spoofing",
+                  "description": "Someone who logs into the router admin page could change Wi-Fi, firewall or isolation settings for the whole home network.",
+                  "mitigation": "Default admin password replaced with a strong unique one. Admin page not reachable from the guest network, tested.",
+                  "threatId": "812214e6-4d83-4eec-9776-288c45e16ecf",
+                  "$$hashKey": "object:199"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Router"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 70
+              },
+              "position": {
+                "x": 740,
+                "y": 150
+              },
+              "angle": 0,
+              "id": "53ddaf81-1155-4692-9bc0-eb36ca3090d1",
+              "z": 13,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "title": "Account and play data stored by Nintendo",
+                  "type": "Information disclosure",
+                  "description": "Nintendo stores account details, purchases and play history, which the household doesn’t control.",
+                  "mitigation": "Risk accepted. No payment card saved. Passkey and two-step verification on.",
+                  "threatId": "a38918fe-9d36-4816-a8ac-3f0ec5bdc4da",
+                  "$$hashKey": "object:535"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Nintendo servers"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 70
+              },
+              "position": {
+                "x": 740,
+                "y": 239
+              },
+              "angle": 0,
+              "id": "2bd13271-84ea-4da2-80b5-f8253e4838ab",
+              "z": 14,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "title": "Account and play data stored by Sony",
+                  "type": "Information disclosure",
+                  "description": "Sony stores account details, purchases and play history, which the household doesn’t control.",
+                  "mitigation": "Risk accepted. No payment card saved. Login with passkey only.",
+                  "threatId": "0f254912-88f6-4869-8a98-bca5cd33c52f",
+                  "$$hashKey": "object:529"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "PS network"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 70
+              },
+              "position": {
+                "x": 740,
+                "y": 330
+              },
+              "angle": 0,
+              "id": "848a48ae-3729-4bb9-957b-8ca922418498",
+              "z": 15,
+              "hasOpenThreats": true,
+              "description": "Photos, device backups, files",
+              "isEncrypted": true,
+              "storesCredentials": true,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "modelType": "STRIDE",
+                  "title": "Photos list with no independent copy",
+                  "type": "Denial of service",
+                  "description": "Photos are synced between iCloud, the phone and the Mac, but there is no independent copy. A deletion or account lockout would affect all devices.",
+                  "mitigation": "Planned: DIY NAS on the Pi with 3-2-1 backups. Keeping iCloud until a working backup exists.",
+                  "threatId": "61c63588-b0a0-4051-bf53-573292991393",
+                  "$$hashKey": "object:324"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "iCloud"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 70
+              },
+              "position": {
+                "x": 740,
+                "y": 470
+              },
+              "angle": 0,
+              "id": "06499f5b-11dd-412b-90b3-0b68645358b1",
+              "z": 16,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "title": "Robot data reveals when the home is empty",
+                  "type": "Information disclosure",
+                  "threatId": "1104abfe-7bb3-4f8f-b139-407ba4bc2a4f",
+                  "$$hashKey": "object:222",
+                  "description": "The robot sends its map, cleaning times and status to Roborock's cloud. That data could show when nobody is home, and the household can't control how Roborock stores or protects it.",
+                  "mitigation": "Risk accepted: the robot needs the cloud to work, and the floor plan itself is often public. Strong unique password on the Roborock account reduces the risk of someone else reading the data, but Roborock offers no two-factor login."
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Roborock cloud"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 70
+              },
+              "position": {
+                "x": 740,
+                "y": 580
+              },
+              "angle": 0,
+              "id": "0d57221f-a043-4d0c-829f-56d6f5ff568c",
+              "z": 17,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "type": "Information disclosure",
+                  "title": "Light data stored by Govee",
+                  "threatId": "f03e9eae-7b03-4b23-80d4-6eef7cad462e",
+                  "$$hashKey": "object:375",
+                  "description": "The lights send their status and schedules to Govee's cloud, which the household doesn't control. The data could hint at when someone is home.",
+                  "mitigation": "Risk accepted: the lights need the cloud for app control, and the data is low value. Strong unique password on the account."
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Govee cloud"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 70
+              },
+              "position": {
+                "x": 740,
+                "y": 690
+              },
+              "angle": 0,
+              "id": "5ba56b1a-8cd8-4e14-9dfe-5ce18bb8fc17",
+              "z": 18,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "modelType": "STRIDE",
+                  "title": "Video stored or leaked by the cloud provider",
+                  "type": "Information disclosure",
+                  "description": "Live video and alerts pass through TP-link's servers, which the household does not control. No cloud recording and no microSD card, and alerts are text only, so no video or images are stored.",
+                  "mitigation": "Accepted because the cameras need the cloud to work. Reduced risk by privacy mode when we're home. No cloud recording subscription and no microSD card, so video is not stored.",
+                  "threatId": "14824693-a9d3-44cd-bb01-a3ece4a7e01b",
+                  "$$hashKey": "object:258"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Tapo cloud"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 70
+              },
+              "position": {
+                "x": 740,
+                "y": 840
+              },
+              "angle": 0,
+              "id": "f7d6dfb2-87ea-4204-8932-412060b5ecfe",
+              "z": 19,
+              "hasOpenThreats": false,
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "title": "TV sends viewing data to the manufacturer",
+                  "type": "Information disclosure",
+                  "description": "Smart TVs often send viewing habits and usage data to the manufacturer for advertising.",
+                  "mitigation": "Advertising setting and partner consents turned off. Viewing information services off. Interest-based advertising off. Voice recognition off.",
+                  "threatId": "1a48fe57-910c-496a-9f88-439d21b128ef",
+                  "$$hashKey": "object:248"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "TV cloud"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 70
+              },
+              "position": {
+                "x": 741,
+                "y": 940
+              },
+              "angle": 0,
+              "id": "3045f649-ad00-4f93-8f3f-333ed9af1201",
+              "z": 20,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "title": "Viewing habits stored by streaming services",
+                  "type": "Information disclosure",
+                  "description": "Streaming services store what the household watches and when.",
+                  "mitigation": "Risk accepted. Normal for any streaming service, and the data is low value.",
+                  "threatId": "5972c8e3-8580-452b-835d-db6a197b4f32",
+                  "$$hashKey": "object:235"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Streaming"
+                },
+                ".element-text": {
+                  "class": "element-text hasOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 150,
+                "height": 70
+              },
+              "position": {
+                "x": 745,
+                "y": 1061
+              },
+              "angle": 0,
+              "id": "a2bd0ffa-a039-46c3-ba4d-0686fabca16e",
+              "z": 21,
+              "hasOpenThreats": false,
+              "description": "External DNS servers run by independent organisations, outside the household’s control. Threats are covered on the flow from Unbound.",
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Root DNS servers"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 150,
+                "height": 70
+              },
+              "position": {
+                "x": 1080,
+                "y": 470
+              },
+              "angle": 0,
+              "id": "ae89efeb-4e99-4132-9fbf-8f71af34e70f",
+              "z": 22,
+              "hasOpenThreats": false,
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "type": "Elevation of privilege",
+                  "description": "The roborock may not get timely security updates. An attacker who takes over the robot could try to use it to reach other devices on the home network.",
+                  "title": "Hacked roborock used to reach the main network",
+                  "mitigation": "The roborock sits on \"guest network\", isolated from the main network. Isolation tested. Other devices on the guest network may still be reachable, not tested.",
+                  "threatId": "3633b52f-b6f7-4d9f-80e2-4f4d6d8ba523",
+                  "$$hashKey": "object:127"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Roborock"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 150,
+                "height": 70
+              },
+              "position": {
+                "x": 1080,
+                "y": 580
+              },
+              "angle": 0,
+              "id": "50b93c90-825a-432c-a32d-d4f1f8d14d40",
+              "z": 23,
+              "hasOpenThreats": false,
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "type": "Elevation of privilege",
+                  "title": "Hacked light used to reach the main network",
+                  "description": "The smart lights rarely get security updates. An attacker who takes over a light could try to use it to reach other devices on the home network.",
+                  "mitigation": "The lights sit on \"guest network\", isolated from the main network. Other devices on \"guest network\" may still be reachable, not tested.",
+                  "threatId": "cb15576a-515e-46a9-ba50-4d1f9e1631cd",
+                  "$$hashKey": "object:109"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Govee lights"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 150,
+                "height": 70
+              },
+              "position": {
+                "x": 1080,
+                "y": 690
+              },
+              "angle": 0,
+              "id": "dab88e09-9ffb-44e3-a0be-ff29f1002743",
+              "z": 24,
+              "hasOpenThreats": false,
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "modelType": "STRIDE",
+                  "title": "Hacked camera used to attack other devices",
+                  "type": "Elevation of privilege",
+                  "description": "Cheap cameras rarely get security updates, so one could be taken over and used to reach other devices.",
+                  "mitigation": "The cameras sit on \"guest network\", isolated from the main network.",
+                  "threatId": "a1c21f7b-6d4d-40a6-b734-9b31df5702d9",
+                  "$$hashKey": "object:116"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Tapo cameras"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 150,
+                "height": 70
+              },
+              "position": {
+                "x": 1080,
+                "y": 887
+              },
+              "angle": 0,
+              "id": "10488cf6-1d2c-4dba-81d8-32ec63792ef2",
+              "z": 25,
+              "hasOpenThreats": false,
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "title": "Hacked TV used to reach the main network",
+                  "type": "Elevation of privilege",
+                  "description": "Smart TVs rarely get security updates. An attacker who takes over the TV could try to use it to reach other devices on the home network.",
+                  "mitigation": "The TV sits on the guest network, isolated from the main network. Isolation tested. The TVs remote support access is turned off.",
+                  "threatId": "61ec306b-6979-4557-944f-73b91084406b",
+                  "$$hashKey": "object:228"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Smart TV"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "126fdfb1-eb4a-4bfb-98cd-409ebfb44dca"
+              },
+              "target": {
+                "id": "53ddaf81-1155-4692-9bc0-eb36ca3090d1"
+              },
+              "vertices": [
+                {
+                  "x": 640,
+                  "y": 150
+                }
+              ],
+              "id": "94e07749-5f28-4c1e-a727-51752ec5f910",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Games, account",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 26,
+              "hasOpenThreats": false,
+              "name": "Games, account",
+              "description": "Two-way flow, drawn as one arrow for readability.",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "description": "An attacker who gets the account password could log in, see personal details and make purchases with any saved payment card.",
+                  "title": "Nintendo account taken over with a stolen password",
+                  "type": "Spoofing",
+                  "threatId": "2485141f-f306-43ca-8785-41467032796c",
+                  "$$hashKey": "object:451",
+                  "mitigation": "Passkey set. Strong unique password. Two-step verification on. No payment card saved."
+                }
+              ],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "35ce534d-3566-4af1-ac62-5191ef5bc491"
+              },
+              "target": {
+                "id": "2bd13271-84ea-4da2-80b5-f8253e4838ab"
+              },
+              "vertices": [],
+              "id": "46e69523-b82a-4808-a6fb-1d5a1305daaf",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Games, account",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 27,
+              "hasOpenThreats": false,
+              "name": "Games, account",
+              "description": "Two-way flow, drawn as one arrow for readability.",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "title": "PSN account taken over with a stolen password",
+                  "type": "Spoofing",
+                  "description": "An attacker who gets the account password could log in, see personal details and make purchases with any saved payment card.",
+                  "threatId": "fb1bee33-74dd-40b5-8f32-22a319b5ef02",
+                  "$$hashKey": "object:445",
+                  "mitigation": "Password disabled, login with passkey only. Pin on the console. No payment card saved."
+                }
+              ],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "65fbd77e-2a73-495d-8aa7-d60f20416f0b"
+              },
+              "target": {
+                "id": "848a48ae-3729-4bb9-957b-8ca922418498"
+              },
+              "vertices": [],
+              "id": "2acf0df4-0473-4f7a-aeae-86693bc921f6",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.47624203812973176,
+                    "offset": -16.772406311994366
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "Photos, backups",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 28,
+              "hasOpenThreats": false,
+              "name": "Photos, backups",
+              "description": "Two-way flow, drawn as one arrow for readability.",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "modelType": "STRIDE",
+                  "type": "Spoofing",
+                  "title": "Apple account taken over with stolen password",
+                  "threatId": "07d81919-c511-4804-a3ba-0792804de100",
+                  "$$hashKey": "object:304",
+                  "description": "An attacker who gets the Apple account password, through phishing or a data leak, could log in and read messages and files, photos, backups, or locate and erase the phones.",
+                  "mitigation": "Two-factor authentication on. Long unique password from the password manager. Signed-in devices reviewed, all recognised."
+                }
+              ],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "0ead4ea0-d875-4b1e-8922-536ef1a5b7a0"
+              },
+              "target": {
+                "id": "848a48ae-3729-4bb9-957b-8ca922418498"
+              },
+              "vertices": [
+                {
+                  "x": 677,
+                  "y": 455
+                }
+              ],
+              "id": "47368712-b7c6-450d-961d-75ec5c516e58",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.48096487147152067,
+                    "offset": -28.36894350349378
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "Photos, backups",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 29,
+              "hasOpenThreats": false,
+              "name": "Photos, backups",
+              "description": "Two-way flow, drawn as one arrow for readability.",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "modelType": "STRIDE",
+                  "type": "Spoofing",
+                  "title": "Apple account taken over with stolen password",
+                  "description": "An attacker who gets the Apple account password, through phishing or a data leak, could log in and read messages and files, photos, backups, or locate and erase the phones.",
+                  "mitigation": "Two-factor authentication on. Long unique password from the password manager. Signed-in devices reviewed, all recognised.",
+                  "threatId": "c0372fe6-ce9a-4749-91df-9bcce3231279",
+                  "$$hashKey": "object:323"
+                }
+              ],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "0ead4ea0-d875-4b1e-8922-536ef1a5b7a0"
+              },
+              "target": {
+                "id": "06499f5b-11dd-412b-90b3-0b68645358b1"
+              },
+              "vertices": [
+                {
+                  "x": 690,
+                  "y": 505
+                }
+              ],
+              "id": "f6deba1f-be32-44df-b36f-56f251299b54",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "App commands",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 30,
+              "hasOpenThreats": false,
+              "name": "App commands",
+              "description": "Two-way flow, drawn as one arrow for readability. The app talks to the cloud, never directly to the device.",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "modelType": "STRIDE",
+                  "type": "Spoofing",
+                  "title": "Roborock account taken over with a stolen password",
+                  "description": "An attacker who gets the Roborock password, through a data leak or phishing, could log into the account from anywhere. They could control the robot and read its map and cleaning history.",
+                  "mitigation": "Strong unique password stored in the password manager, replacing a reused one. Two-factor login not found in the Roborock app.",
+                  "threatId": "ed7d57b8-2178-4ed2-92c8-2fbf2cfece08",
+                  "$$hashKey": "object:257"
+                }
+              ],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "0ead4ea0-d875-4b1e-8922-536ef1a5b7a0"
+              },
+              "target": {
+                "id": "0d57221f-a043-4d0c-829f-56d6f5ff568c"
+              },
+              "vertices": [
+                {
+                  "x": 690,
+                  "y": 600
+                }
+              ],
+              "id": "1ca0402b-7cf9-48e8-b9d9-a0db6837c41f",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "App commands",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 31,
+              "hasOpenThreats": false,
+              "name": "App commands",
+              "description": "Two-way flow, drawn as one arrow for readability. The app talks to the cloud, never directly to the device.",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "type": "Spoofing",
+                  "title": "Govee account taken over with stolen password",
+                  "description": "An attacker who gets the Govee password, through a data leak or phishing, could log into the account from anywhere and control the lights.",
+                  "mitigation": "Strong unique password stored in the password manager, replacing a reused one. Two-factor login not found in the Govee app. No API key created and no third-party accounts linked.",
+                  "threatId": "66076d8a-b27f-4e2e-9247-98384465a078",
+                  "$$hashKey": "object:267"
+                }
+              ],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "0ead4ea0-d875-4b1e-8922-536ef1a5b7a0"
+              },
+              "target": {
+                "id": "5ba56b1a-8cd8-4e14-9dfe-5ce18bb8fc17"
+              },
+              "vertices": [
+                {
+                  "x": 575,
+                  "y": 665
+                }
+              ],
+              "id": "491b8e64-34b4-467e-8b6a-cecf47112e49",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.6068032603431484,
+                    "offset": -12.71860613606329
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "App, live video",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 32,
+              "hasOpenThreats": false,
+              "name": "App, live video",
+              "description": "Two-way flow, drawn as one arrow for readability. The app talks to the cloud, never directly to the device.",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "modelType": "STRIDE",
+                  "type": "Spoofing",
+                  "title": "Camera video exposed via hijacked Tapo account",
+                  "description": "Someone who gets the Tapo account password, through a leak or phishing, can log in from anywhere and watch the live video from inside the home.",
+                  "mitigation": "A strong unique password and two-factor login.",
+                  "threatId": "d14bd0f7-f442-40ef-8751-cffaae1c846b",
+                  "$$hashKey": "object:277"
+                }
+              ],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "ae89efeb-4e99-4132-9fbf-8f71af34e70f"
+              },
+              "target": {
+                "id": "06499f5b-11dd-412b-90b3-0b68645358b1"
+              },
+              "vertices": [],
+              "id": "cc64a721-7a21-4502-967a-ae4d7293a70a",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Status, commands",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 33,
+              "hasOpenThreats": false,
+              "name": "Status, commands",
+              "description": "Two-way flow, drawn as one arrow for readability.",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "type": "Denial of service",
+                  "title": "Robot can't be controlled when the cloud is down",
+                  "description": "If the internet or the Roborocks cloud is down, the app can't start, stop or schedule cleaning.",
+                  "mitigation": "Cleaning can be started and stopped with the buttons on the robot, without the internet or the cloud.",
+                  "threatId": "2d906e85-e65b-4e11-b7da-3b309e10dfd9",
+                  "$$hashKey": "object:78"
+                }
+              ],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "50b93c90-825a-432c-a32d-d4f1f8d14d40"
+              },
+              "target": {
+                "id": "0d57221f-a043-4d0c-829f-56d6f5ff568c"
+              },
+              "vertices": [],
+              "id": "192c2e9a-8c75-4e79-8812-730dac7bfca9",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Status, commands",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 34,
+              "hasOpenThreats": false,
+              "name": "Status, commands",
+              "description": "Two-way flow, drawn as one arrow for readability.",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "type": "Denial of service",
+                  "title": "Lights not reachable",
+                  "description": "Internet or the Govee cloud is down, which results in the lights not being able to get turned on or off.",
+                  "mitigation": "The lights can be switched on and off with the physical button on the lamp, without the internet or the cloud. Tested.",
+                  "threatId": "6ecb1dc0-6b24-4049-8092-581e618efa30",
+                  "$$hashKey": "object:60"
+                }
+              ],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "dab88e09-9ffb-44e3-a0be-ff29f1002743"
+              },
+              "target": {
+                "id": "5ba56b1a-8cd8-4e14-9dfe-5ce18bb8fc17"
+              },
+              "vertices": [],
+              "id": "745eeb8d-f3fd-4ed9-b507-b8eb2dfe33eb",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Video, commands",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 35,
+              "hasOpenThreats": false,
+              "name": "Video, commands",
+              "description": "Two-way flow, drawn as one arrow for readability.",
+              "threats": [
+                {
+                  "status": "NotApplicable",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "title": "Cameras stop recording when internet or cloud is down",
+                  "type": "Denial of service",
+                  "description": "If the internet or TP-link's servers are down, the app can't show video or alerts.",
+                  "mitigation": "Accepted, low impact. A local microSD card in the camera would keep recording.",
+                  "threatId": "8f33cd75-c83e-42a7-9ba5-05b048f227fe",
+                  "$$hashKey": "object:97"
+                }
+              ],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "10488cf6-1d2c-4dba-81d8-32ec63792ef2"
+              },
+              "target": {
+                "id": "f7d6dfb2-87ea-4204-8932-412060b5ecfe"
+              },
+              "vertices": [],
+              "id": "c6c337aa-2296-47c9-a9a5-929aeb2fd64e",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Telemetry, updates",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 36,
+              "hasOpenThreats": false,
+              "name": "Telemetry, updates",
+              "description": "Two-way flow, drawn as one arrow for readability.",
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "10488cf6-1d2c-4dba-81d8-32ec63792ef2"
+              },
+              "target": {
+                "id": "3045f649-ad00-4f93-8f3f-333ed9af1201"
+              },
+              "vertices": [],
+              "id": "2015f0e5-4812-429e-9ed7-de908ec368f9",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Video streams",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 37,
+              "hasOpenThreats": false,
+              "name": "Video streams",
+              "description": "Two-way flow, drawn as one arrow for readability.",
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "65fbd77e-2a73-495d-8aa7-d60f20416f0b"
+              },
+              "target": {
+                "id": "39a273bf-8ff4-4808-9e62-ed8c09bb3e6a"
+              },
+              "vertices": [],
+              "id": "c18c7971-3db2-45ef-a420-259c7dc55943",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.05901487304909885,
+                    "offset": -21.721519114113423
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "DNS lookups",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 38,
+              "hasOpenThreats": false,
+              "name": "DNS lookups",
+              "description": "Two-way flow, drawn as one arrow for readability.",
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "0ead4ea0-d875-4b1e-8922-536ef1a5b7a0"
+              },
+              "target": {
+                "id": "39a273bf-8ff4-4808-9e62-ed8c09bb3e6a"
+              },
+              "vertices": [],
+              "id": "048c6126-de99-48f5-8c23-3bc2e89b2e68",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0,
+                    "offset": 29
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "DNS lookups",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 39,
+              "hasOpenThreats": false,
+              "name": "DNS lookups",
+              "description": "Two-way flow, drawn as one arrow for readability.",
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "65fbd77e-2a73-495d-8aa7-d60f20416f0b"
+              },
+              "target": {
+                "id": "70e930e1-946f-4611-a341-39363b8b6225"
+              },
+              "vertices": [],
+              "id": "eb00aa87-0ee0-4407-b8fd-8796a2eff12b",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.5742241229540338,
+                    "offset": -13.581654373165824
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "SSH (key only)",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 40,
+              "hasOpenThreats": false,
+              "name": "SSH (key only)",
+              "description": "Encrypted. Key login from the MacBook only.",
+              "isEncrypted": true,
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "modelType": "STRIDE",
+                  "title": "Unauthorised SSH login to the Pi",
+                  "type": "Spoofing",
+                  "description": "An attacker who logs in over SSH gets full control of the Pi, including Pi-hole, Unbound and the query log.",
+                  "mitigation": "Key login only from the MacBook, key protected by a passphrase. Password and root login disabled, tested.",
+                  "threatId": "7fcedf70-99ce-4641-a0fa-32618e78b843",
+                  "$$hashKey": "object:397"
+                }
+              ],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "39a273bf-8ff4-4808-9e62-ed8c09bb3e6a"
+              },
+              "target": {
+                "id": "6e6656e4-79a5-4a27-b649-eb2a9aadbd3d"
+              },
+              "vertices": [],
+              "id": "ff39c039-0b37-4f7d-8940-f959f0c53b07",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Logs lookups",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 41,
+              "hasOpenThreats": false,
+              "name": "Logs lookups",
+              "description": "One-way: Pi-hole writes to the log.",
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "39a273bf-8ff4-4808-9e62-ed8c09bb3e6a"
+              },
+              "target": {
+                "id": "87035449-7f9b-432a-9766-4b114c9bd91e"
+              },
+              "vertices": [],
+              "id": "dbf543a7-0a3a-4720-8c0a-9b2c82c036ea",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.4882776138302228,
+                    "offset": 13.482435728307712
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "Unblocked lookups",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 42,
+              "hasOpenThreats": false,
+              "name": "Unblocked lookups",
+              "description": "Two-way flow, drawn as one arrow for readability.",
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "87035449-7f9b-432a-9766-4b114c9bd91e"
+              },
+              "target": {
+                "id": "a2bd0ffa-a039-46c3-ba4d-0686fabca16e"
+              },
+              "vertices": [
+                {
+                  "x": 254,
+                  "y": 1001
+                }
+              ],
+              "id": "c26dcddd-6cb0-4123-a382-3b0ab72315a4",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "DNS lookups (DNSSEC)",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 43,
+              "hasOpenThreats": false,
+              "name": "DNS lookups (DNSSEC)",
+              "description": "Two-way flow, drawn as one arrow for readability.",
+              "isPublicNetwork": true,
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "modelType": "STRIDE",
+                  "title": "Fake DNS answers sent to the family",
+                  "type": "Spoofing",
+                  "description": "An attacker on the internet could send forged answers, so a website name points to a server they control.",
+                  "mitigation": "Unbound checks DNSSEC signatures and rejects forged answers. But many domains aren't signed with DNSSEC at all, and for those, the check can't help. That's why it's only partly mitigated.",
+                  "threatId": "d551fc62-1168-4bb9-abc5-f18c861d9dc7",
+                  "$$hashKey": "object:147"
+                },
+                {
+                  "status": "NotApplicable",
+                  "severity": "Low",
+                  "modelType": "STRIDE",
+                  "title": "DNS lookups visible to the internet provider",
+                  "type": "Information disclosure",
+                  "description": "Unbound asks the root and other DNS servers directly, but those lookups are unencrypted, so the ISP could see which sites are looked up.",
+                  "mitigation": "Accepted, because it's still better than before: no single company gets the full list anymore.",
+                  "threatId": "c9e9222a-834d-434d-bb5b-022616678157",
+                  "$$hashKey": "object:557"
+                }
+              ],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 390,
+                "y": 5
+              },
+              "target": {
+                "x": 399,
+                "y": 1187
+              },
+              "vertices": [],
+              "id": "7bc4a7b8-b6bc-4a0f-b58a-641efba3d3c4",
+              "z": 44,
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.014505759518510596,
+                    "offset": 23.00251313022575
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "Raspberry pi | Main",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "attrs": {}
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 1077,
+                "y": 783
+              },
+              "angle": 0,
+              "id": "693b7b7e-0323-4678-8fd5-19bfb5f5d93d",
+              "z": 45,
+              "hasOpenThreats": false,
+              "outOfScope": true,
+              "reasonOutOfScope": "Set-top box not connected to any network. Wi-Fi setup failed because the remote can't type all the characters in the password.",
+              "description": "Set-top box, not in use.",
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isOutOfScope"
+                },
+                "text": {
+                  "text": "Tv-box"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            }
+          ]
+        },
+        "size": {
+          "height": 1463,
+          "width": 1661
+        }
+      }
+    ],
+    "reviewer": ""
+  }
+}

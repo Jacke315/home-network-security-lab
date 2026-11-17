@@ -8,7 +8,11 @@ A learning project towards a career in technology risk and IT audit.
 
 ## Start here
 
-The threat model is in `docs/threat-model/` (JSON file, open it with OWASP Threat Dragon). An exported diagram will be added.
+![Threat model diagram](docs/threat-model/home-threat-model-diagram.svg)
+
+*Diagram generated from model file. Red marks elements with open threats.*
+
+The threat model itself is in `docs/threat-model/` (JSON file, made with OWASP Threat Dragon version 1.6.1).
 
 ## Scope
 
